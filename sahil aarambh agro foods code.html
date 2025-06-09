@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Aarambh Agro Food’s - Freshness from Farm to You</title>
+  <style>
+    :root {
+      --color-bg: #ffffff;
+      --color-text-primary: #1a202c;
+      --color-text-secondary: #4a5568;
+      --color-accent: #4caf50;
+      --color-accent-hover: #388e3c;
+      --color-card-bg: rgba(249, 250, 251, 0.85);
+      --color-shadow: rgba(0, 0, 0, 0.08);
+      --color-btn-text: #ffffff;
+      --color-btn-bg: var(--color-accent);
+      --color-btn-bg-hover: var(--color-accent-hover);
+      --color-nav-bg: #ffffffcc;
+      --color-nav-border: #e2e8f0;
+
+      /* Environment-themed backgrounds */
+      --env-bg-light: rgba(243, 250, 244, 0.85);
+      --env-bg-lighter: rgba(230, 244, 234, 0.85);
+      --env-bg-soft: rgba(216, 234, 223, 0.85);
+    }
+
+    /* Reset */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+        Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      background-color: var(--color-bg);
+      color: var(--color-text-secondary);
+      font-size: 18px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      scroll-behavior: smooth;
+      position: relative;
+      overflow-x: hidden;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    a:focus, button:focus, input:focus, textarea:focus {
+      outline-offset: 3px;
+      outline: 3px solid var(--color-accent);
+      outline-radius: 0.25rem;
+      outline-style: solid;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      position: relative;
+      z-index: 10; /* above background and overlay */
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      background: var(--color-nav-bg);
+      backdrop-filter: saturate(180%) blur(12px);
+      box-shadow: 0 2px 8px var(--color-shadow);
+      border-bottom: 1px solid var(--color-nav-border);
+      z-index: 1000;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 64px;
+      padding: 0 1rem;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.6rem;
+      color: var(--color-text-primary);
+      letter-spacing: 0.05em;
+      user-select: none;
+      cursor: default;
+      white-space: nowrap;
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      font-weight: 600;
+      color: var(--color-text-primary);
+      font-size: 1rem;
+      align-items: center;
+    }
+    .nav-links a {
+      position: relative;
+      padding: 0.25rem 0;
+      transition: color 0.3s ease;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 0%;
+      height: 2px;
+      background: var(--color-accent);
+      transition: width 0.3s ease;
+      border-radius: 1px;
+    }
+    .nav-links a:hover, .nav-links a:focus {
+      color: var(--color-accent);
+    }
+    .nav-links a:hover::after, .nav-links a:focus::after {
+      width: 100%;
+    }
+
+    /* Instagram icon with animation */
+    .instagram-icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--color-text-primary);
+      transition: stroke 0.3s ease, transform 0.3s ease;
+      stroke-width: 1.5;
+      fill: none;
+      user-select: none;
+    }
+    .instagram-icon:hover svg,
+    .instagram-icon:focus svg {
+      stroke: var(--color-accent);
+      transform: scale(1.15);
+      outline: none;
+    }
+
+    .cart-icon {
+      position: relative;
+      font-size: 1.25rem;
+      cursor: pointer;
+      user-select: none;
+    }
+    .cart-count {
+      position: absolute;
+      top: -6px;
+      right: -10px;
+      background: var(--color-accent);
+      color: var(--color-btn-text);
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0 6px;
+      line-height: 1.2;
+      user-select: none;
+    }
+
+    main {
+      padding-top: 5rem;
+      scroll-margin-top: 80px;
+    }
+
+    /* Environment theme section wrapper */
+    .env-themed-section {
+      border-radius: 1rem;
+      box-shadow: 0 6px 15px rgb(76 175 80 / 0.15);
+      margin: 3rem auto;
+      position: relative;
+      overflow: hidden;
+      background-color: var(--color-card-bg);
+      background-clip: padding-box;
+      color: var(--color-text-primary);
+    }
+    /* Alternate background for variety */
+    .env-section-1 {
+      background-color: var(--env-bg-lighter);
+    }
+    .env-section-2 {
+      background-color: var(--env-bg-light);
+    }
+    .env-section-3 {
+      background-color: var(--env-bg-soft);
+    }
+
+    /* Video background styles */
+    .video-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+      filter: brightness(0.3) saturate(0.7);
+      pointer-events: none;
+      user-select: none;
+    }
+    /* Overlay to ensure text readability */
+    .video-overlay {
+      position: absolute;
+      inset: 0;
+      background-color: rgba(255 255 255 / 0.65);
+      z-index: 2;
+      pointer-events: none;
+      user-select: none;
+      border-radius: inherit;
+    }
+
+    /* Leaf icon inline style */
+    .section-heading {
+      display: flex;
+      align-items: center;
+      font-weight: 700;
+      font-size: 2.5rem;
+      color: var(--color-text-primary);
+      user-select: none;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      position: relative;
+      z-index: 10;
+    }
+    .section-heading svg {
+      width: 36px;
+      height: 36px;
+      fill: var(--color-accent);
+      flex-shrink: 0;
+      user-select: none;
+      filter: drop-shadow(0 0 1px rgba(0,0,0,0.05));
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+      z-index: 10;
+    }
+    .hero h1 {
+      font-size: 3.8rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      line-height: 1.1;
+    }
+    .hero p {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      margin-bottom: 2.5rem;
+      max-width: 580px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .btn-primary {
+      background-color: var(--color-btn-bg);
+      color: var(--color-btn-text);
+      font-weight: 700;
+      font-size: 1.25rem;
+      padding: 0.85rem 2.75rem;
+      border: none;
+      border-radius: 0.75rem;
+      cursor: pointer;
+      box-shadow: 0 6px 12px rgb(76 175 80 / 0.3);
+      transition:
+        background-color 0.3s ease,
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+      user-select: none;
+    }
+    .btn-primary:hover, .btn-primary:focus {
+      background-color: var(--color-btn-bg-hover);
+      box-shadow: 0 8px 18px rgb(56 142 60 / 0.5);
+      transform: scale(1.05);
+      outline: none;
+    }
+
+    /* Introduction Section */
+    section.introduction {
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+    }
+    section.introduction p {
+      font-size: 1.15rem;
+      font-weight: 500;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+      color: var(--color-text-secondary);
+    }
+
+    /* About Us Section */
+    section.about {
+      max-width: 900px;
+      position: relative;
+      z-index: 10;
+    }
+    section.about p {
+      font-size: 1.125rem;
+      font-weight: 500;
+      line-height: 1.5;
+      color: var(--color-text-secondary);
+    }
+
+    /* Location Section */
+    section.location {
+      max-width: 900px;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+    }
+    section.location .established-year {
+      font-weight: 600;
+      color: var(--color-accent);
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+      user-select: none;
+    }
+    section.location address {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 1.15rem;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+      user-select: text;
+      margin-bottom: 1rem;
+    }
+    /* Map placeholder box */
+    .map-placeholder {
+      margin-top: 1.5rem;
+      width: 100%;
+      max-width: 730px;
+      height: 300px;
+      background: rgba(230, 244, 234, 0.6);
+      border-radius: 1rem;
+      box-shadow: 0 6px 15px rgba(76, 175, 80, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-accent);
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: 0.03em;
+      user-select: none;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Products Section */
+    section.products {
+      padding-bottom: 3rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+      gap: 2rem;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+      z-index: 10;
+    }
+    .product-card {
+      background: var(--color-card-bg);
+      border-radius: 0.75rem;
+      box-shadow: 0 6px 10px var(--color-shadow);
+      display: flex;
+      flex-direction: column;
+      cursor: default;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+      color: var(--color-text-primary);
+    }
+    .product-card:hover, .product-card:focus-within {
+      box-shadow: 0 12px 24px rgb(76 175 80 / 0.4);
+      transform: translateY(-6px);
+      outline: none;
+    }
+    .product-image {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-top-left-radius: 0.75rem;
+      border-top-right-radius: 0.75rem;
+      user-select: none;
+    }
+    .product-info {
+      padding: 1.25rem 1.5rem 1.5rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .product-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 0 0 0.5rem 0;
+      user-select: none;
+    }
+    .product-price {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--color-accent);
+      margin-top: auto;
+      user-select: none;
+    }
+    .btn-add {
+      margin-top: 1rem;
+      background: var(--color-accent);
+      border: none;
+      border-radius: 0.625rem;
+      padding: 0.55rem 1rem;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--color-btn-text);
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      user-select: none;
+      align-self: flex-start;
+      box-shadow: 0 4px 8px rgba(76, 175, 80, 0.4);
+    }
+    .btn-add:hover, .btn-add:focus {
+      background-color: var(--color-btn-bg-hover);
+      transform: scale(1.05);
+      outline: none;
+    }
+
+    /* Contact Section */
+    section.contact {
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      color: var(--color-text-primary);
+      padding-bottom: 3rem;
+      position: relative;
+      z-index: 10;
+    }
+    section.contact p.mobile-number {
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      color: var(--color-text-primary);
+      user-select:none;
+    }
+    section.contact p.mobile-number a {
+      color: var(--color-accent);
+      font-weight: 700;
+      text-decoration: none;
+    }
+    section.contact form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    section.contact label {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--color-text-primary);
+      user-select: none;
+    }
+    section.contact input,
+    section.contact textarea {
+      font-size: 1rem;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.5rem;
+      border: 1.5px solid #cbd5e1;
+      transition: border-color 0.3s ease;
+      font-family: inherit;
+      color: var(--color-text-primary);
+    }
+    section.contact input:focus,
+    section.contact textarea:focus {
+      border-color: var(--color-accent);
+      outline: none;
+    }
+    section.contact textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    .btn-submit {
+      background-color: var(--color-accent);
+      border: none;
+      border-radius: 0.75rem;
+      padding: 0.75rem 1.5rem;
+      color: var(--color-btn-text);
+      font-weight: 700;
+      font-size: 1.125rem;
+      cursor: pointer;
+      box-shadow: 0 6px 12px rgb(76 175 80 / 0.3);
+      user-select: none;
+      transition:
+        background-color 0.3s ease,
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+      align-self: center;
+      max-width: 180px;
+    }
+    .btn-submit:hover, .btn-submit:focus {
+      background-color: var(--color-btn-bg-hover);
+      box-shadow: 0 8px 18px rgb(56 142 60 / 0.5);
+      transform: scale(1.05);
+      outline: none;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem 3rem;
+      color: var(--color-text-secondary);
+      font-size: 0.875rem;
+      border-top: 1px solid var(--color-nav-border);
+      user-select: none;
+    }
+
+    /* Leaf icon style for hero */
+    .hero .leaf-icon {
+      width: 48px;
+      height: 48px;
+      fill: var(--color-accent);
+      margin-bottom: 1rem;
+      user-select: none;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+    }
+
+    /* Tree farm background styles and animations */
+    /* Will keep tree SVG backgrounds but slightly less emphasis as video is present */
+    .tree-farm-bg {
+      pointer-events: none; /* non interactive */
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200%;
+      height: 150px;
+      opacity: 0.07;
+      filter: drop-shadow(0 0 1px rgba(0,0,0,0.02));
+      z-index: 2;
+      user-select: none;
+      overflow: visible;
+    }
+    @media (min-width: 640px) {
+      .tree-farm-bg {
+        height: 220px;
+        opacity: 0.06;
+      }
+    }
+    /* Animations */
+    @keyframes sway {
+      0%, 100% {
+        transform: translateX(0) translateY(0);
+      }
+      50% {
+        transform: translateX(-10px) translateY(5px);
+      }
+    }
+    @keyframes slowSway {
+      0%, 100% {
+        transform: translateX(0) translateY(0);
+      }
+      50% {
+        transform: translateX(8px) translateY(3px);
+      }
+    }
+    .env-section-1 .tree-farm-bg svg,
+    .env-section-3 .tree-farm-bg svg {
+      animation: sway 8s ease-in-out infinite alternate;
+      will-change: transform;
+    }
+    .env-section-2 .tree-farm-bg svg {
+      animation: slowSway 11s ease-in-out infinite alternate;
+      will-change: transform;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="container" aria-label="Primary navigation">
+      <div class="logo" role="banner">Aarambh Agro Food’s</div>
+      <div class="nav-links" role="navigation" aria-label="Main menu">
+        <a href="#hero" tabindex="0">Home</a>
+        <a href="#about" tabindex="0">About Us</a>
+        <a href="#products" tabindex="0">Products</a>
+        <a href="#contact" tabindex="0">Contact Me</a>
+        <a href="https://www.instagram.com" target="_blank" rel="noopener" tabindex="0" aria-label="Instagram" class="instagram-icon">
+          <!-- Instagram line icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" >
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37a4 4 0 1 1-4.74-4.74 4 4 0 0 1 4.74 4.74z"></path>
+            <line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line>
+          </svg>
+          Instagram
+        </a>
+        <a href="#cart" tabindex="0" class="cart-icon" aria-label="Shopping cart">
+          🛒
+          <span class="cart-count" id="cartCount" aria-live="polite" aria-atomic="true">0</span>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <section class="env-themed-section env-section-1" id="hero" aria-labelledby="hero-title">
+      <video class="video-bg" muted autoplay loop playsinline preload="auto" tabindex="-1" aria-hidden="true" >
+        <source src="https://cdn.videvo.net/videvo_files/video/free/2016-07/small_watermarked/160711_18_Farmstead_07_preview.webm" type="video/webm" />
+        <source src="https://cdn.videvo.net/videvo_files/video/free/2016-07/small_watermarked/160711_18_Farmstead_07_preview.mp4" type="video/mp4" />
+        <!-- fallback text -->
+      </video>
+      <div class="video-overlay" aria-hidden="true"></div>
+      <div class="container hero" >
+        <svg class="leaf-icon" xmlns="http://www.w3.org/2000/svg"viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M32 2C19 22 6 32 6 32c10 4 20-5 26-14 6 9 16 18 26 14 0 0-13-10-26-30z"/></svg>
+        <h1 id="hero-title">Freshness from Farm to You</h1>
+        <p>Your trusted source for organic, farm-fresh food products direct from local growers, nurturing the environment with each harvest.</p>
+        <button class="btn-primary" type="button" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">Browse Products</button>
+      </div>
+      <div class="tree-farm-bg" aria-hidden="true">
+        <svg width="200%" height="150" viewBox="0 0 1200 150" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" opacity="0.15">
+          <g>
+            <path d="M50 120 L70 90 L90 120 M70 90 L70 60"></path>
+            <path d="M110 120 L130 80 L150 120 M130 80 L130 40"></path>
+            <path d="M190 120 L210 100 L230 120 M210 100 L210 50"></path>
+            <path d="M270 120 L290 85 L310 120 M290 85 L290 55"></path>
+            <path d="M350 120 L370 95 L390 120 M370 95 L370 65"></path>
+            <path d="M430 120 L450 90 L470 120 M450 90 L450 65"></path>
+            <path d="M510 120 L530 100 L550 120 M530 100 L530 60"></path>
+            <path d="M590 120 L610 85 L630 120 M610 85 L610 50"></path>
+            <path d="M670 120 L690 100 L710 120 M690 100 L690 55"></path>
+            <path d="M750 120 L770 95 L790 120 M770 95 L770 70"></path>
+            <path d="M830 120 L850 90 L870 120 M850 90 L850 65"></path>
+            <path d="M910 120 L930 105 L950 120 M930 105 L930 60"></path>
+            <path d="M990 120 L1010 90 L1030 120 M1010 90 L1010 40"></path>
+            <path d="M1070 120 L1090 80 L1110 120 M1090 80 L1090 35"></path>
+            <path d="M1150 120 L1170 95 L1190 120 M1170 95 L1170 60"></path>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <section class="env-themed-section env-section-2 introduction container" aria-label="Introduction">
+      <video class="video-bg" muted autoplay loop playsinline preload="auto" tabindex="-1" aria-hidden="true" >
+        <source src="https://cdn.videvo.net/videvo_files/video/free/2016-07/small_watermarked/160711_18_Farmstead_07_preview.webm" type="video/webm" />
+        <source src="https://cdn.videvo.net/videvo_files/video/free/2016-07/small_watermarked/160711_18_Farmstead_07_preview.mp4" type="video/mp4" />
+      </video>
+      <div class="video-overlay" aria-hidden="true"></div>
+      <h2 class="section-heading" id="intro-heading">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M32 2C19 22 6 32 6 32c10 4 20-5 26-14 6 9 16 18 26 14 0 0-13-10-26-30z"/></svg>
+        Introduction
+      </h2>
+      <p>At Aarambh Agro Food’s, we harmonize farming with nature, believing deeply in sustainable practices that protect soil, water, and biodiversity. Every product we deliver supports a healthier planet and vibrant communities.</p>
+      <div class="tree-farm-bg" aria-hidden="true" style="height:120px; opacity:0.1; bottom:10px;">
+        <svg width="200%" height="120" viewBox="0 0 1200 120" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="var(--color-accent)" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" opacity="0.12">
+          <g>
+            <path d="M50 100 L70 75 L90 100 M70 75 L70 50"></path>
+            <path d="M110 100 L130 70 L150 100 M130 70 L130 40"></path>
+            <path d="M190 100 L210 90 L230 100 M210 90 L210 50"></path>
+            <path d="M270 100 L290 70 L310 100 M290 70 L290 45"></path>
+            <path d="M350 100 L370 85 L390 100 M370 85 L370 60"></path>
+            <path d="M430 100 L450 70 L470 100 M450 70 L450 55"></path>
+            <path d="M510 100 L530 80 L550 100 M530 80 L530 60"></path>
+            <path d="M590 100 L610 75 L630 100 M610 75 L610 50"></path>
+            <path d="M670 100 L690 90 L710 100 M690 90 L690 65"></path>
+            <path d="M750 100 L770 80 L790 100 M770 80 L770 55"></path>
+            <path d="M830 100 L850 70 L870 100 M850 70 L850 40"></path>
+            <path d="M910 100 L930 80 L950 100 M930 80 L930 45"></path>
+            <path d="M990 100 L1010 75 L1030 100 M1010 75 L1010 50"></path>
+            <path d="M1070 100 L1090 70 L1110 100 M1090 70 L1090 40"></path>
+            <path d="M1150 100 L1170 80 L1190 100 M1170 80 L1170 55"></path>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <section class="env-themed-section env-section-3 about container" id="about" aria-labelledby="about-title">
+      <video class="video-bg" muted autoplay loop playsinline preload="auto" tabindex="-1" aria-hidden="true" >
+        <source src="https://cdn.videvo.net/videvo_files/video/free/2016-07/small_watermarked/160711_18_Farmstead_07_preview.webm" type="video/webm" />
+        <source src="https://cdn.videvo.net/videvo_files/video/free/2016-07/small_watermarked/160711_18_Farmstead_07_preview.mp4" type="video/mp4" />
+      </video>
+      <div class="video-overlay" aria-hidden="true"></div>
+      <h2 class="section-heading" id="about-title">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M32 2C19 22 6 32 6 32c10 4 20-5 26-14 6 9 16 18 26 14 0 0-13-10-26-30z"/></svg>
+        About Us
+      </h2>
+      <p>Founded in 2020-21, with a passion to bridge the gap between farmers and consumers, Aarambh Agro Food’s brings forward the finest selection of daily agro essential products, and dehydrated food products. We promote eco-friendly agriculture methods and empower farming communities for a sustainable future.</p>
+      <div class="tree-farm-bg" aria-hidden="true" style="height:140px; opacity:0.12; bottom:5px;">
+        <svg width="200%" height="140" viewBox="0 0 1200 140" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" opacity="0.14">
+          <g>
+            <path d="M50 120 L70 90 L90 120 M70 90 L70 60"></path>
+            <path d="M110 120 L130 80 L150 120 M130 80 L130 40"></path>
+            <path d="M190 120 L210 100 L230 120 M210 100 L210 50"></path>
+            <path d="M270 120 L290 85 L310 120 M290 85 L290 55"></path>
+            <path d="M350 120 L370 95 L390 120 M370 95 L370 65"></path>
+            <path d="M430 120 L450 90 L470 120 M450 90 L450 65"></path>
+            <path d="M510 120 L530 100 L550 120 M530 100 L530 60"></path>
+            <path d="M590 120 L610 85 L630 120 M610 85 L610 50"></path>
+            <path d="M670 120 L690 100 L710 120 M690 100 L690 55"></path>
+            <path d="M750 120 L770 95 L790 120 M770 95 L770 70"></path>
+            <path d="M830 120 L850 90 L870 120 M850 90 L850 65"></path>
+            <path d="M910 120 L930 105 L950 120 M930 105 L930 60"></path>
+            <path d="M990 120 L1010 90 L1030 120 M1010 90 L1010 40"></path>
+            <path d="M1070 120 L1090 80 L1110 120 M1090 80 L1090 35"></path>
+            <path d="M1150 120 L1170 95 L1190 120 M1170 95 L1170 60"></path>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <section class="env-themed-section env-section-1 location container" aria-labelledby="location-title">
+      <video class="video-bg" muted autoplay loop playsinline preload="auto" tabindex="-1" aria-hidden="true" >
+        <source src="https://cdn.videvo.net/videvo_files/video/free/2016-07/small_watermarked/160711_18_Farmstead_07_preview.webm" type="video/webm" />
+        <source src="https://cdn.videvo.net/videvo_files/video/free/2016-07/small_watermarked/160711_18_Farmstead_07_preview.mp4" type="video/mp4" />
+      </video>
+      <div class="video-overlay" aria-hidden="true"></div>
+      <h2 class="section-heading" id="location-title">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M32 2C19 22 6 32 6 32c10 4 20-5 26-14 6 9 16 18 26 14 0 0-13-10-26-30z"/></svg>
+        Our Location
+      </h2>
+      <div class="established-year">Established: 2020-21</div>
+      <address>
+        Taluka Selu, Dist Parbhani<br />
+        Maharashtra 431503<br />
+        India
+      </address>
+      <div class="map-placeholder" aria-label="Map placeholder showing Maharashtra, India">
+        Map of Maharashtra, India will be displayed here
+      </div>
+      <div class="tree-farm-bg" aria-hidden="true" style="height:140px; opacity:0.11; bottom:0;">
+        <svg width="200%" height="140" viewBox="0 0 1200 140" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" opacity="0.13">
+          <g>
+            <path d="M50 120 L70 90 L90 120 M70 90 L70 60"></path>
+            <path d="M110 120 L130 80 L150 120 M130 80 L130 40"></path>
+            <path d="M190 120 L210 100 L230 120 M210 100 L210 50"></path>
+            <path d="M270 120 L290 85 L310 120 M290 85 L290 55"></path>
+            <path d="M350 120 L370 95 L390 120 M370 95 L370 65"></path>
+            <path d="M430 120 L450 90 L470 120 M450 90 L450 65"></path>
+            <path d="M510 120 L530 100 L550 120 M530 100 L530 60"></path>
+            <path d="M590 120 L610 85 L630 120 M610 85 L610 50"></path>
+            <path d="M670 120 L690 100 L710 120 M690 100 L690 55"></path>
+            <path d="M750 120 L770 95 L790 120 M770 95 L770 70"></path>
+            <path d="M830 120 L850 90 L870 120 M850 90 L850 65"></path>
+            <path d="M910 120 L930 105 L950 120 M930 105 L930 60"></path>
+            <path d="M990 120 L1010 90 L1030 120 M1010 90 L1010 40"></path>
+            <path d="M1070 120 L1090 80 L1110 120 M1090 80 L1090 35"></path>
+            <path d="M1150 120 L1170 95 L1190 120 M1170 95 L1170 60"></path>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <section class="env-themed-section env-section-2 products container" id="products" aria-label="Products">
+      <video class="video-bg" muted autoplay loop playsinline preload="auto" tabindex="-1" aria-hidden="true" >
+        <source src="https://cdn.videvo.net/videvo_files/video/free/2016-07/small_watermarked/160711_18_Farmstead_07_preview.webm" type="video/webm" />
+        <source src="https://cdn.videvo.net/videvo_files/video/free/2016-07/small_watermarked/160711_18_Farmstead_07_preview.mp4" type="video/mp4" />
+      </video>
+      <div class="video-overlay" aria-hidden="true"></div>
+      <h2 class="section-heading">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M32 2C19 22 6 32 6 32c10 4 20-5 26-14 6 9 16 18 26 14 0 0-13-10-26-30z"/></svg>
+        Our Key Products
+      </h2>
+      <!-- Updated product cards -->
+      <article class="product-card" tabindex="0">
+        <img src="https://images.unsplash.com/photo-1581260796003-6b73fb1fcd21?auto=format&fit=crop&w=400&q=80" alt="Daily Agro Essential Products" class="product-image" loading="lazy" />
+        <div class="product-info">
+          <h3 class="product-name">Daily Agro Essential Products</h3>
+          <p class="product-price">₹100 - ₹500</p>
+          <button class="btn-add" type="button" data-name="Daily Agro Essential Products" data-price="100">Add to Cart</button>
+        </div>
+      </article>
+
+      <article class="product-card" tabindex="0">
+        <img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=400&q=80" alt="Dehydrated Food Products" class="product-image" loading="lazy" />
+        <div class="product-info">
+          <h3 class="product-name">Dehydrated Food Products</h3>
+          <p class="product-price">₹150 - ₹600</p>
+          <button class="btn-add" type="button" data-name="Dehydrated Food Products" data-price="150">Add to Cart</button>
+        </div>
+      </article>
+      <div class="tree-farm-bg" aria-hidden="true" style="height:130px; opacity:0.1; bottom:-10px;">
+        <svg width="200%" height="130" viewBox="0 0 1200 130" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="var(--color-accent)" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" opacity="0.12">
+          <g>
+            <path d="M50 110 L70 87 L90 110 M70 87 L70 57"></path>
+            <path d="M110 110 L130 77 L150 110 M130 77 L130 45"></path>
+            <path d="M190 110 L210 95 L230 110 M210 95 L210 59"></path>
+            <path d="M270 110 L290 80 L310 110 M290 80 L290 58"></path>
+            <path d="M350 110 L370 92 L390 110 M370 92 L370 56"></path>
+            <path d="M430 110 L450 75 L470 110 M450 75 L450 50"></path>
+            <path d="M510 110 L530 90 L550 110 M530 90 L530 54"></path>
+            <path d="M590 110 L610 82 L630 110 M610 82 L610 52"></path>
+            <path d="M670 110 L690 95 L710 110 M690 95 L690 57"></path>
+            <path d="M750 110 L770 86 L790 110 M770 86 L770 60"></path>
+            <path d="M830 110 L850 79 L870 110 M850 79 L850 44"></path>
+            <path d="M910 110 L930 91 L950 110 M930 91 L930 58"></path>
+            <path d="M990 110 L1010 77 L1030 110 M1010 77 L1010 46"></path>
+            <path d="M1070 110 L1090 82 L1110 110 M1090 82 L1090 44"></path>
+            <path d="M1150 110 L1170 89 L1190 110 M1170 89 L1170 57"></path>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <section class="env-themed-section env-section-3 contact container" id="contact" aria-labelledby="contact-title">
+      <video class="video-bg" muted autoplay loop playsinline preload="auto" tabindex="-1" aria-hidden="true" >
+        <source src="https://cdn.videvo.net/videvo_files/video/free/2016-07/small_watermarked/160711_18_Farmstead_07_preview.webm" type="video/webm" />
+        <source src="https://cdn.videvo.net/videvo_files/video/free/2016-07/small_watermarked/160711_18_Farmstead_07_preview.mp4" type="video/mp4" />
+      </video>
+      <div class="video-overlay" aria-hidden="true"></div>
+      <h2 class="section-heading" id="contact-title">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M32 2C19 22 6 32 6 32c10 4 20-5 26-14 6 9 16 18 26 14 0 0-13-10-26-30z"/></svg>
+        Contact Me
+      </h2>
+      <p class="mobile-number">
+        Mobile: <a href="tel:+918767431389">8767431389</a>
+      </p>
+      <form onsubmit="event.preventDefault(); alert('Thank you for contacting Aarambh Agro Food’s! We will get back to you soon.');" aria-label="Contact form">
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" placeholder="Your Full Name" required />
+
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="you@example.com" required />
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="Write your message here" required></textarea>
+
+        <button type="submit" class="btn-submit">Send Message</button>
+      </form>
+      <div class="tree-farm-bg" aria-hidden="true" style="height:130px; opacity:0.1; bottom:-5px;">
+        <svg width="200%" height="130" viewBox="0 0 1200 130" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="var(--color-accent)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" opacity="0.1">
+          <g>
+            <path d="M50 110 L70 90 L90 110 M70 90 L70 60"></path>
+            <path d="M110 110 L130 70 L150 110 M130 70 L130 40"></path>
+            <path d="M190 110 L210 100 L230 110 M210 100 L210 55"></path>
+            <path d="M270 110 L290 85 L310 110 M290 85 L290 55"></path>
+            <path d="M350 110 L370 95 L390 110 M370 95 L370 60"></path>
+            <path d="M430 110 L450 90 L470 110 M450 90 L450 55"></path>
+            <path d="M510 110 L530 100 L550 110 M530 100 L530 65"></path>
+            <path d="M590 110 L610 85 L630 110 M610 85 L610 55"></path>
+            <path d="M670 110 L690 100 L710 110 M690 100 L690 65"></path>
+            <path d="M750 110 L770 95 L790 110 M770 95 L770 70"></path>
+            <path d="M830 110 L850 90 L870 110 M850 90 L850 60"></path>
+            <path d="M910 110 L930 105 L950 110 M930 105 L930 65"></path>
+            <path d="M990 110 L1010 90 L1030 110 M1010 90 L1010 50"></path>
+            <path d="M1070 110 L1090 80 L1110 110 M1090 80 L1090 45"></path>
+            <path d="M1150 110 L1170 95 L1190 110 M1170 95 L1170 65"></path>
+          </g>
+        </svg>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2024 Aarambh Agro Food’s. All rights reserved.
+  </footer>
+
+  <script>
+    (function() {
+      const cartCountElem = document.getElementById('cartCount');
+      const addButtons = document.querySelectorAll('.btn-add');
+      let cartCount = 0;
+
+      addButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          cartCount++;
+          cartCountElem.textContent = cartCount;
+          const productName = btn.dataset.name;
+          alert(\`Added "\${productName}" to cart!\`);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
